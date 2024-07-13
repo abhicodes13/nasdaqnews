@@ -2,7 +2,7 @@ import React from "react";
 
 function Stock() {
   return (
-    <div className="p-5 text-purple-800">
+    <div className="p-5 text-purple-800 text-center">
       <h1 className="font-semibold text-purple-800">Type in a ticker : </h1>
       <input
         type="text"

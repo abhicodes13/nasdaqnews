@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
 
 function StockNews() {
-  const [data, setData] = useState([]);
+  const [market, setMarket] = useState();
   useEffect(() => {
     const getData = async () => {
       const url =
-        "https://real-time-finance-data.p.rapidapi.com/stock-news?symbol=AAPL%3ANASDAQ&language=en";
+        "https://devapi-finance.p.rapidapi.com/v2/markets/stock/ticker-summary?ticker=AAPL&type=STOCKS";
       const options = {
         method: "GET",
         headers: {
           "x-rapidapi-key":
             "aaf412f001mshb16825a0d5065e6p181d8ajsn4a009ea4951a",
-          "x-rapidapi-host": "real-time-finance-data.p.rapidapi.com",
+          "x-rapidapi-host": "devapi-finance.p.rapidapi.com",
         },
       };
 
       try {
         const response = await fetch(url, options);
         const result = await response.json();
-        const data = result.data.news;
-        setData(data);
+        setMarket(result.body.summaryData.MarketCap.value.math());
       } catch (error) {
         console.error(error);
       }
@@ -28,9 +27,7 @@ function StockNews() {
   }, []);
   return (
     <div>
-      {data.map((item) => {
-        <h1>{item.article_title}</h1>;
-      })}
+      <h1 className="text-[3em] text-center">Market Cap : ${market}</h1>
     </div>
   );
 }
